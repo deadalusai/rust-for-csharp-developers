@@ -9,7 +9,7 @@ Benjamin Fox | [Intergen](http://teamintergen.com/)
 
 # What is Rust?
 
-[http://rust-lang.org/](http://rust-lang.org/)
+http://rust-lang.org/
 
 A statically checked, compiled language intended as a modern
 "systems" programming language.
@@ -31,8 +31,7 @@ allocation/deallocation.
 07. No dangling pointers!
 08. No segfaults!
 09. Entirely statically checked
-10. LLVM backend
-11. Cross-platform (Support for MSVC toolchain just released)
+10. Cross-platform (Support for MSVC toolchain just released)
 
 ---
 
@@ -43,7 +42,8 @@ allocation/deallocation.
 
 ## Eliminates data races
 
-...by preventing two threads of execution from accessing the same memory simultaneously.
+...by preventing two threads of execution from accessing the
+same memory simultaneously
 
 ---
 
@@ -100,8 +100,8 @@ let bar1 = Bar { foo: foo };
 
 The second statement **moves** the data owned by `foo` into `bar1`.
 
-Bar "consumes" ownership of the data - from this point forward the only
-way to access `foo` is through `bar`:
+Bar "consumes" ownership of the data - from this point forward the
+only way to access `foo` is through `bar`:
 
 ```rust
 println!("The value of foo.data is: {}", bar1.foo.data);
@@ -129,7 +129,8 @@ fn main() {
 }
 ```
 
-Invoking a function with an argument "moves" ownership of that argument into the function.
+Invoking a function with an argument "moves" ownership of that
+argument into the function.
 
 .center[
 [playpen](http://is.gd/u0caGa)
@@ -153,8 +154,8 @@ fn main() {
 }
 ```
 
-The ampersand (`&`) sigil indicates a "reference". We can loan out references to data 
-we own as many times as we like.
+The ampersand (`&`) sigil indicates a "reference". We can loan
+out references to data we own as many times as we like.
 
 .center[
 [playpen](http://is.gd/rOF3MS)
@@ -175,8 +176,8 @@ let foo = Foo;
 subroutine(foo); // Ok
 ```
 
-As soon as the borrowed variable `temp` goes out of scope we can again use the `foo`
-variable.
+As soon as the borrowed variable `temp` goes out of scope we can
+again use the `foo` variable.
 
 .center[
 [playpen](http://is.gd/uNGBlG);
@@ -194,7 +195,8 @@ let r = &a;
 subroutine(a); // Error
 ```
 
-I can't transfer ownership of `a` away until the borrow goes out of scope.
+I can't transfer ownership of `a` away until the borrow goes out
+of scope.
 
 ```rust
 let a = Foo;
@@ -261,8 +263,8 @@ fn main() {
 }
 ```
 
-Rust automatically determines that the `foo` parameter will live at least as
-long as the borrow of `foo.inner`.
+Rust automatically determines that the `foo` parameter will live
+at least as long as the borrow of `foo.inner`.
 
 .center[
 [playpen](http://is.gd/yfc1Bt)
@@ -279,8 +281,8 @@ let borrowed_foo: &Foo = ...;
 let owned_foo = borrowed_foo.clone(); // An owned copy of borrowed_foo
 ```
 
-Borrowing can get complicated quickly. A common out is to take a copy of a borrowed
-value.
+Borrowing can get complicated quickly. A common out is to take a
+copy of a borrowed value.
 
 Because you own the result, you can do what you like with it.
 
@@ -288,7 +290,8 @@ Because you own the result, you can do what you like with it.
 [playpen](http://is.gd/773lGD)
 ]
 
-**Note:** The `clone` function is part of the [Clone](https://doc.rust-lang.org/std/clone/trait.Clone.html)
+**Note:** The `clone` function is part of the 
+[Clone](https://doc.rust-lang.org/std/clone/trait.Clone.html)
 trait - we'll cover that later!
 
 ---
