@@ -88,24 +88,27 @@ variable, I give that function ownership of the variable.
 I cannot subsequently use it - even if the function has completed and
 returned.
 
+This doesn't seem particularly useful - all we're doing is passing around
+ownership. So...
 
 # Borrowing
 
-Every borrow has a "lifetime". Lifetimes are generally defined by a local
-(lexical) scope.
+A variable can be *borrowed*. The borrower takes temporary ownership
+of the variable.
 
-Here we borrow `foo` and assign the reference to a variable `temp`. Within the
-block scope we can use `temp` as much as we like, but we are prevented from
-using foo.
+Here we borrow `foo` and assign the **reference** to a variable `temp`.
 
-We could rewrite the `subroutine` function to accept a reference - this would
-allow us to invoke the subroutine without giving up ownership of our data.
+Every borrow has a "lifetime". The lifetime is generally lexical - it
+lasts until the scope in which it was made ends.
+
+We could rewrite `subroutine` to accept a reference - this would allow us
+to invoke the subroutine without giving up ownership of our data.
 
 
 # Borrowing two
 
 Data once borrowed can only be accessed via that reference, until the
-reference goes out of scope and the borrow ends.
+borrow ends.
 
 This is to prevent us from "moving" (or otherwise changing) borrowed memory
 while the borrow is still in scope.

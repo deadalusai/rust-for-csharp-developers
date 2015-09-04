@@ -236,7 +236,7 @@ fn subroutine() -> &int {
 }
 
 fn main() {
-    let int_ptr = subroutine();
+    let int_ref = subroutine();
 }
 ```
 
@@ -290,9 +290,9 @@ Because you own the result, you can do what you like with it.
 [playpen](http://is.gd/773lGD)
 ]
 
-**Note:** The `clone` function is part of the 
+The `clone` function is part of the 
 [Clone](https://doc.rust-lang.org/std/clone/trait.Clone.html)
-trait - we'll cover that later!
+trait.
 
 ---
 
