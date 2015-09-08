@@ -379,3 +379,33 @@ The compiler emits only a single version of the function which is
 optimized for the vtable.
 
 In this case the Trait behaves much more like a C# interface.
+
+
+# Unsafe
+
+Rust is a memory safe language which executes in an unsafe world.
+
+Rust provides you an interface with guarantees about memory safety,
+but under the hood many operations are implemented using unsafe code.
+
+This could be for performance reasons or simply because the is just not
+smart enough to understand that a given operation is actually safe.
+
+We can write unsafe code only with an unsafe block... C# developers
+will be familiar with this concept.
+
+This operation is unsafe becase the Rust compiler can't verify anything
+done here is legitimate. Here I'm breaking the rules by mutating an
+immutable variable.
+
+
+# Unsafe (ffi)
+
+All Rust code which interoperates with the outside workld is necessarily
+unsafe.
+
+All FFI (foreign function interface) code is unsafe. This is because the
+foreign code could potentially do anything, including scribble on your stack.
+
+For FFI, Rust basically speaks C - any language which supports binding to C
+can bind to Rust code.

@@ -180,7 +180,7 @@ As soon as the borrowed variable `temp` goes out of scope we can
 again use the `foo` variable.
 
 .center[
-[example](http://is.gd/uNGBlG);
+[example](http://is.gd/uNGBlG)
 ]
 
 ---
@@ -689,3 +689,56 @@ In this case the Trait behaves much more like a C# interface.
 .center[
 [example](http://is.gd/sO5f1f)
 ]
+
+---
+
+# Unsafe
+
+Rust is a memory safe language which executes in an unsafe world.
+
+Many abstractions in Rust are implemented using **unsafe** code.
+
+We can disable many compiler checks by using the "unsafe" keyword:
+
+```rust
+let a = 3;
+
+// "I know what I'm doing"
+unsafe {
+    // Raw pointers are only allowed in unsafe code
+    let b = &a as *const i32 as *mut i32;
+    *b = 4;
+}
+
+println!("{}", a); // Prints 4
+```
+
+Unsafe code is not discouraged, but it's usually unnecessary!
+
+.center[
+[example](http://is.gd/qSC7tr)
+]
+
+---
+
+# Unsafe (FFI)
+
+All FFI (foreign function interface) code is unsafe.
+
+```rust
+#[link(name = "externallib")]
+extern {
+    fn MyExternalFunction() -> i32;
+}
+
+fn main() {
+    let i = unsafe { MyExternalFunction() };
+
+    println!("{}", i);
+}
+```
+
+This is because the foreign code could potentially do anything
+and the Rust compiler has no way of verifying it.
+
+(Rust can bind to any language which supports C bindings)
