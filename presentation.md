@@ -470,3 +470,115 @@ fn main() {
 .center[
 [example](http://is.gd/xBGGCg)
 ]
+
+
+---
+
+# Structs
+
+We've seen this a few times:
+
+```rust
+struct Vector3 { x: f64, y: f64, z: f64 }
+
+fn main() {
+    let v1 = Vector3 { x: 100, y: 200, z: 300 };
+}
+```
+
+---
+
+# Tuples
+
+Tuples provide a way to package up multiple values up anonymously;
+
+```rust
+let my_stuff = (100_i32, "Hello, world");
+
+// Destructuring syntax
+let (int, string) = my_stuff;
+```
+
+---
+
+# Tuple Structs
+
+You can combine tuple and struct syntax to produce a tuple struct:
+
+```rust
+struct Vector3(f32, f32, f32);
+```
+
+---
+
+# Enums
+
+Enums are structs on steroids. F# users might be more comfortable with the name
+"Discriminated Unions".
+
+Each "variant" can optionally hold data using tuple or struct syntax:
+
+```rust
+enum MyEnum {
+    A,
+    B(i32),
+    C { i: i32 }
+}
+
+fn main() {
+    let maybe = MyEnum::B(100);
+    match maybe {
+        MyEnum::A       => println!("Got A"),
+        MyEnum::B(i)    => println!("Got B: {}", i),
+        MyEnum::C { i } => println!("Got C: {}", i)
+    };
+}
+```
+
+.center[
+[example](http://is.gd/Lec2l8)
+]
+
+---
+
+# Enums
+
+A value of a given enum type is the size of the largest variant.
+
+Enums can also behave "traditionally":
+
+```rust
+enum State {
+    Ready = 0,
+    Steady = 1,
+    Go = 2
+}
+```
+---
+
+# Option<T>
+
+Rust doesn't allow "null" references, but it can be useful to represent
+the concept of "no data".
+
+The rust standard library gives us the `Option<T>` enum:
+
+```rust
+enum Option<T> { Some(T), None }
+```
+
+Thanks to `Option`, "null reference errors" are hard to cause unintentionally:
+
+```rust
+let maybe: Option<String> = None;
+
+// To get at the possibly-none value, I must either match:
+let s = match maybe { Some(s) => s, None => "Missing".to_string() }; // "Missing"
+
+// Or unwrap:
+let s = maybe.unwrap(); // panic! Attempted to unwrap None
+```
+
+.center[
+[example](http://is.gd/UGGxux)
+]

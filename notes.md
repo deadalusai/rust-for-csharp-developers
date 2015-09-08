@@ -259,3 +259,67 @@ The two Arcs are "dropped" when their threads exit.
 
 **Note** that `HashMap` has no special handling for cross-thread usage - rust
 ensures that the threads have only read-only access to `peeps`.
+
+
+# More straightforward language featues
+
+So far we've had an in-depth review of the features which make Rust new and
+interesting.
+
+Lets take a look at some of the more vanilla language features you'll use in
+day-to-day rust.
+
+
+# Structs
+
+We've seen this syntax used throughout my samples so far.
+
+Like C#, structs are a collection of values accessible by name.
+
+Unlike C# a struct must be "constructed" in a single expression - no partially
+initialized values allowed.
+
+
+# Tuples
+
+Tuples provide a way to package up multiple values up anonymously.
+
+Similar to the `Tuple` struct in C#, but can be arbitrarily large and supports
+special syntax for creating, destructuring and describing.
+
+
+# Tuple Structs
+
+You can combine tuple and struct syntax to produce a tuple struct.
+
+
+# Enums
+
+Enums are structs on steroids. F# users might be more comfortable with the name
+"Discriminated Unions".
+
+Each enum variant can optionally contain data. A value of a given enum type will
+be the size of the largest variant.
+
+We use the `match` statement to "unwrap" an enum. Like F#, the Rust compiler
+ensures that this statement is exhaustive - if you fail to specify a branch
+for an enum variant (or a catch-all branch) the compiler emits an error.
+
+
+# Enums two
+
+Enums can also behave more "traditionally".
+
+
+# Option<T>
+
+Rust doesn't allow "null" references, but it can be useful to represent
+the concept of "no data".
+
+The standard library gives us the `Option<T>` enum. Option represents the possibility
+of "Some value" or "None".
+
+C#- or Java-style "null reference errors" are hard to cause accidentally - I
+must explicitly "unwrap" an Option to produce Rust's equivalent.
+
+Generally, you will use special Rust syntax to safely handle Option values.
