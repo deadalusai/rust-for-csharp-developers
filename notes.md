@@ -72,7 +72,7 @@ The equivalent Rust code fails to compile. Instead it produces an error:
 
 
 # Ownership two
-    
+
 The variable `foo` is "moved" into `bar1`, so bar1 now owns that data. We
 cannot subsequently move it a second time.
 
@@ -123,13 +123,13 @@ This common mistake in the C programming language is a compile error in Rust.
 Here we return a pointer to a stack-allocated variable. GCC issues a warning:
 
     `function returns address of local variable`
-    
+
 But allows us to continue. Hello, use after free!
 
 Rust fails to compile the equivalent code. The error message we're given:
 
     `missing lifetime specifier`
-    
+
 Means that Rust could not determine an appropriate lifetime for the borrowed
 value, and so wants us to provide it.
 
@@ -143,18 +143,88 @@ We **can** return a reference into data which we've borrowed. Here the
 `get_inner` function returns a reference to the `inner` field of the `Foo`
 struct.
 
-Rust determines that `foo` and `inner` have the same lifetime, and so the
+Rust determines that `foo` and `inner` can have the same lifetime, and so the
 borrow is allowed.
 
 The rule is that `foo` must live **at least** as long as `inner`.
 
 
-# Cloning
+# Borrowing five
 
-Sometimes you will find yourself "fighting with the borrow checker". A common
-way to resolve this is to take ownership of a value you're borrowing.
+You will not always want to work with borrowed values - either you want to
+own the data you're working with, or you find yourself "fighting with the borrow
+checker".
 
-You can use something like the `clone` function to take a copy of a value.
+One way to take ownership of a borrowed value is to copy it - we can do so
+with the `clone` function.
+
 Once you own the data, you can do what you like with it.
 
 Keep in mind that cloning a large struct might be an expensive operation!
+
+`clone` is provided by the "Trait" `std::clone::Clone` - we'll talk more about
+traits later.
+
+
+# Memory management
+
+Rust has no garbage collection - instead rust determines when it can free memory
+by analyzing the lifetimes of variables and determining when they are safely out
+of scope.
+
+This is made possible because of ownership - every piece of memory at any time
+can have exactly one owner.
+
+Here we introduce a new concept - Boxing. `Box<T>` is the standard manner for
+putting data on the heap. We pass some data to the `Box::new` function, which
+allocates space on the heap and copies the data there.
+
+We own the `Box<T>` instance, and the Box owns the pointer into the heap.
+
+When the `thing` variable goes out of scope, we know it is safe to free the
+memoryh eld by the Box.
+
+**Note:** The `box` keyword is coming soon - it provides a language-integrated
+way to allocate memory. Advantages include support for custom allocators and
+avoiding allocating memory on the stack unnecessarily.
+
+
+# Memory management two
+
+We can use the `std::ops::Drop` Trait to run code when a value goes out of
+scope.
+
+This code will print in the order "2, 3, 1", as each value is dropped in the
+reverse order in which it was declared in its scope.
+
+There's a bunch of new syntax here. The `impl` block implements the `Drop` trait
+for `MyStruct`. The rust compiler automatically inserts calls to `Drop::drop`
+whenever each value goes out of scope.
+
+We can use this function to clean up resources we own and free memory.
+
+
+# Memory management three
+
+You may want to decouple the lifetime of a value from the scope of your
+function.
+
+Box is one way to accomplish this, but it only allows a single owner.
+
+If you want to have shared read-only memory, you can use an `Rc<T>`.
+
+We can `clone` an Rc to hand out ownership to other structs and
+functions. Every clone increments the reference count.
+
+As each owned copy of the Rc is dropped, the reference count is
+decremented. When it reaches zero, the memory is deallocated.
+
+
+# Mutability
+
+In Rust values are immutable by default. We can mark a variable
+mutable using the `mut` keyword.
+
+
+# Mutability two
+
