@@ -439,3 +439,34 @@ let mut a = 100;
 }
 let second = &mut a; // Second mutable reference
 ```
+
+---
+
+# Concurrency
+
+Ownership and reference mutability allows threads to safely share memory:
+
+```rust
+fn main() {
+    let mut peeps = HashMap::new();
+    peeps.insert("John", "Cena");
+    peeps.insert("Rhonda", "Rousey");
+
+    // Arc is Atomically Reference Counted
+    let arc1 = Arc::new(peeps);
+    let arc2 = arc1.clone();
+
+    // Ownership of each Arc is moved into the thread
+    let first  = spawn(move || { println!("Rhonda {0}", arc1["Rhonda"]); });
+    let second = spawn(move || { println!("John {0}",   arc2["John"]);   });
+
+    //Wait for the threads...
+    first.join().unwrap();
+    second.join().unwrap();
+}
+
+```
+
+.center[
+[example](http://is.gd/xBGGCg)
+]

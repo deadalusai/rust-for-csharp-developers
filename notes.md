@@ -228,3 +228,34 @@ mutable using the `mut` keyword.
 
 # Mutability two
 
+Mutability is also part of the **type** of a borrowed reference.
+
+In the first function we are passed an immutable 32-bit integer reference.
+Attempting to write to this reference results in an error.
+
+In the second function we are passed a mutable reference. Not only can I
+read from it, but I can also write back to it too.
+
+
+# Concurrency
+
+Let's take a quick dip into concurrency.
+
+Thanks to Ownership and Reference mutability, we can safely share memory
+between threads.
+
+`Arc` is "Atomically Reference Counted" - like Rc, but safe to use across thread
+boundaries. It provides immutable access to the data it contains.
+
+The `spawn` function spawns another thread.
+
+The `|| { }` syntax demarks a Rust closure. It's equivalent to the `() => { }`
+syntax of C#.
+
+The `move` keyword makes the closure "take ownership" of its environment.
+All values used in the closer are moved **into** the closure.
+
+The two Arcs are "dropped" when their threads exit.
+
+**Note** that `HashMap` has no special handling for cross-thread usage - rust
+ensures that the threads have only read-only access to `peeps`.
