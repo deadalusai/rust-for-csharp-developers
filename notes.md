@@ -247,6 +247,8 @@ between threads.
 `Arc` is "Atomically Reference Counted" - like Rc, but safe to use across thread
 boundaries. It provides immutable access to the data it contains.
 
+**Note** that you cannot share a **mutable** reference across threads!
+
 The `spawn` function spawns another thread.
 
 The `|| { }` syntax demarks a Rust closure. It's equivalent to the `() => { }`
@@ -316,10 +318,64 @@ Enums can also behave more "traditionally".
 Rust doesn't allow "null" references, but it can be useful to represent
 the concept of "no data".
 
-The standard library gives us the `Option<T>` enum. Option represents the possibility
-of "Some value" or "None".
+The standard library gives us the `Option<T>` enum. Option represents the
+possibility of "Some value" or "None".
 
 C#- or Java-style "null reference errors" are hard to cause accidentally - I
 must explicitly "unwrap" an Option to produce Rust's equivalent.
 
 Generally, you will use special Rust syntax to safely handle Option values.
+
+
+# Traits
+
+Traits are superfically similar to C# interfaces, very similar to Haskell
+typeclasses.
+
+A trait can be implemented by any type (e.g. struct, tuple, enum).
+
+In this case the "Clone" trait indicates that a value implementing it can go
+from a shared reference "&self" to an owned value "Self".
+
+
+We implement the trait using the "impl for" syntax.
+
+This implementation copies the x, y, z values into a new Vector3 struct.
+
+
+# Traits in Generics
+
+Traits become useful when used as bounds in generic types and functions.
+
+Here we've got a generic function `clone_vec`, which accepts a vec of T
+and attempts to clone its contents.
+
+We can use `clone_vec` only with a vector which contains a type that implements
+`Clone`. This is because of the `where T: Clone` bound.
+
+The `Unclonable` struct here doesn't implement `Clone`, so it's not allowed.
+
+
+# Generics
+
+Rust compiles generic functions into specialized versions tuned
+for the generic type parameters through a process called
+Monomorphization.
+
+Here, the compiler may generate a multiple versions of `example`: one tuned for
+each type which implements `Foo`.
+
+These functions are invoked statically - no dynamic dispatch is required.
+
+# Generics two
+
+Rust also supports dynamic dispatch through "Trait objects".
+
+Passing a Trait by reference (rather than generic constraint) will
+cause Rust to generate a vtable for any type that implements that
+Trait.
+
+The compiler emits only a single version of the function which is
+optimized for the vtable.
+
+In this case the Trait behaves much more like a C# interface.

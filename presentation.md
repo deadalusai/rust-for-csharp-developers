@@ -582,3 +582,110 @@ let s = maybe.unwrap(); // panic! Attempted to unwrap None
 .center[
 [example](http://is.gd/UGGxux)
 ]
+
+---
+
+# Traits
+
+Superfically similar to C# interfaces, very similar to Haskell typeclasses.
+
+From the standard library:
+
+```rust
+trait Clone {
+    // &self: orrows the value
+    // Self: Returns an owned value of the same type
+    fn clone(&self) -> Self;
+}
+```
+
+An example implementation:
+
+```rust
+impl Clone for Vector3 {
+    fn clone(&self) -> Vector3 {
+        Vector3 { x: self.x, y: self.y, z: self.z }
+    }
+}
+```
+
+---
+
+# Traits in Generics
+
+Traits become useful when used as bounds in generics:
+
+```rust
+fn clone_vec<T>(source: &Vec<T>) -> Vec<T>
+    where T: Clone
+{
+    let mut dest = Vec::new();
+    for item in source.iter() {
+        dest.push(item.clone());
+    }
+    dest
+}
+```
+
+```rust
+fn main() {
+    let clonable = Vec::new();
+    clonable.push(100_i32);
+
+    let copy = clone_vec(&clonable); //Ok!
+
+    let unclonable = Vec::new();
+    unclonable.push(Unclonable);
+
+    let copy = clone_vec(&clonable); //Not allowed!
+}
+
+```
+
+---
+
+# Generics
+
+Rust compiles generic functions into specialized versions tuned
+for the generic type parameters.
+
+```rust
+trait Foo {
+    fn bar(&self) -> i32;
+}
+
+fn example<T>(foo: T) where T: Foo {
+    println!("The bar value: {}", foo.bar());
+}
+```
+
+The compiler will emit a version of `example` for every type which
+implements `Foo` (if necessary).
+
+.center[
+[example](http://is.gd/jDn5Th)
+]
+
+---
+
+# Generics
+
+Rust also supports dynamic dispatch through "Trait objects".
+
+Passing a Trait by reference (rather than generic constraint) will
+cause Rust to generate a vtable.
+
+The compiler emits only a single version of the function which is
+optimized for the vtable.
+
+```rust
+fn example_two(foo: &Foo) {
+    println!("The bar value: {}", foo.bar());
+}
+```
+
+In this case the Trait behaves much more like a C# interface.
+
+.center[
+[example](http://is.gd/sO5f1f)
+]
