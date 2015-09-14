@@ -593,7 +593,7 @@ From the standard library:
 
 ```rust
 trait Clone {
-    // &self: orrows the value
+    // &self: borrows the value
     // Self: Returns an owned value of the same type
     fn clone(&self) -> Self;
 }
