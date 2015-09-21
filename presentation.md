@@ -195,7 +195,7 @@ let r = &a;
 subroutine(a); // Error
 ```
 
-I can't transfer ownership of `a` away until the borrow goes out
+I can't transfer ownership away until the borrow goes out
 of scope.
 
 ```rust
@@ -608,6 +608,38 @@ impl Clone for Vector3 {
     }
 }
 ```
+
+---
+
+# Traits
+
+Traits can also define static functions:
+
+```rust
+// A trait for describing types with a "default value" in libstd
+trait Default {
+    fn default() -> Self;
+}
+
+#[derive(Debug)]
+struct MyThing(i32);
+
+impl Default for MyThing {
+    fn default() -> MyThing {
+        MyThing(100)
+    }
+}
+
+fn main() {
+    let a: MyThing = Default::default();
+    println!("Result: {:?}", a);
+}
+```
+
+.center[
+[example](http://is.gd/A6D7VB)
+]
+
 
 ---
 

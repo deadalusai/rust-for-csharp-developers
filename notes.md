@@ -343,6 +343,21 @@ We implement the trait using the "impl for" syntax.
 This implementation copies the x, y, z values into a new Vector3 struct.
 
 
+# Traits two
+
+Traits can also define static functions. Here we've got a Trait defined
+in the standard library: `Default`. It allows us to describe a type with
+a "default" constructor or value.
+
+Note the function does not take a "self" argument.
+
+We can invoke this using the `Default::default()` syntax (the compiler
+determines the correct method to call by inferring the return type from
+the right-hand side.
+
+We could also type `MyThing::default()` or `<MyThing as Default>::default()`.
+
+
 # Traits in Generics
 
 Traits become useful when used as bounds in generic types and functions.
