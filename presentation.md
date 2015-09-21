@@ -585,6 +585,26 @@ let s = maybe.unwrap(); // panic! Attempted to unwrap None
 
 ---
 
+# Result<T, Err>
+
+Rust doesn't have any concept of "Exceptions". (Panics don't count*)
+
+Instead, we can use the `Result<T, Err>` enum.
+
+```rust
+enum Result<T, E> { Ok(T), Err(E) }
+```
+
+The `E` generic type can be anything useful to represent what
+went wrong: an enum, complex struct or even just a string.
+
+Like Option, we can use pattern matching or `unwrap` to get at the
+`Ok` result.
+
+__*__ Panics can only be "caught" at a thread boundary
+
+---
+
 # Traits
 
 Superfically similar to C# interfaces. Tou can implement whenever

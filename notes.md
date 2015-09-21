@@ -327,6 +327,19 @@ must explicitly "unwrap" an Option to produce Rust's equivalent.
 Generally, you will use special Rust syntax to safely handle Option values.
 
 
+# Result<T, Err>
+
+Rust doesn't have any concept of "Exceptions". (Panics don't count*)
+
+Instead we can use something like the standard library `Result` type.
+
+This enum encodes success (Ok) and failure (Err). The values can
+be accessed either through pattern matching or the `.unwrap()` function.
+
+The standard library has lots of utility plumbing built around Result,
+e.g. the `try!` macro.
+
+
 # Traits
 
 Traits are superfically similar to C# interfaces. You can implement
