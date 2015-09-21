@@ -329,18 +329,17 @@ Generally, you will use special Rust syntax to safely handle Option values.
 
 # Traits
 
-Traits are superfically similar to C# interfaces, very similar to Haskell
-typeclasses.
+Traits are superfically similar to C# interfaces. You can implement
+a trait on any type as long as you control the type or the trait
+(or both).
 
-A trait can be implemented by any type (e.g. struct, tuple, enum).
-
-In this case the "Clone" trait indicates that a value implementing it can go
-from a shared reference "&self" to an owned value "Self".
-
+In this case the "Clone" trait indicates that a value implementing
+it can go from a shared reference "&self" to an owned value "Self".
 
 We implement the trait using the "impl for" syntax.
 
-This implementation copies the x, y, z values into a new Vector3 struct.
+This implementation copies the x, y, z values into a new Vector3
+struct.
 
 
 # Traits two
@@ -358,7 +357,7 @@ the right-hand side.
 We could also type `MyThing::default()` or `<MyThing as Default>::default()`.
 
 
-# Traits in Generics
+# Traits and Generics
 
 Traits become useful when used as bounds in generic types and functions.
 
@@ -369,6 +368,21 @@ We can use `clone_vec` only with a vector which contains a type that implements
 `Clone`. This is because of the `where T: Clone` bound.
 
 The `Unclonable` struct here doesn't implement `Clone`, so it's not allowed.
+
+
+# Traits and Generics two
+
+Let's look at a cool example.
+
+The `parse` function is generic over `FromStr`. Rust infers
+the expected return type of parse and then looks up a FromStr
+implementation for that type.
+
+It is a compile error if an implementation cannot be found.
+
+FromStr also defines an associated type: Err. The implementor
+of FromStr must also describe the type returned in the event of
+an error.
 
 
 # Generics

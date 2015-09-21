@@ -587,27 +587,26 @@ let s = maybe.unwrap(); // panic! Attempted to unwrap None
 
 # Traits
 
-Superfically similar to C# interfaces, very similar to Haskell typeclasses.
-
-From the standard library:
+Superfically similar to C# interfaces. Tou can implement whenever
+you control either the trait or the type.
 
 ```rust
+// From the standard library
 trait Clone {
     // &self: borrows the value
     // Self: Returns an owned value of the same type
     fn clone(&self) -> Self;
 }
-```
 
-An example implementation:
-
-```rust
 impl Clone for Vector3 {
     fn clone(&self) -> Vector3 {
         Vector3 { x: self.x, y: self.y, z: self.z }
     }
 }
 ```
+
+Much of the standard library is built by composing together
+small traits.
 
 ---
 
@@ -643,7 +642,7 @@ fn main() {
 
 ---
 
-# Traits in Generics
+# Traits and Generics
 
 Traits become useful when used as bounds in generics:
 
@@ -657,9 +656,7 @@ fn clone_vec<T>(source: &Vec<T>) -> Vec<T>
     }
     dest
 }
-```
 
-```rust
 fn main() {
     let clonable = Vec::new();
     clonable.push(100_i32);
@@ -671,8 +668,37 @@ fn main() {
 
     let copy = clone_vec(&clonable); //Not allowed!
 }
-
 ```
+
+---
+
+# Traits and Generics
+
+From the standard library: [FromStr](http://doc.rust-lang.org/stable/std/primitive.str.html#method.parse)
+and [parse](http://doc.rust-lang.org/stable/std/primitive.str.html#method.parse).
+
+```rust
+struct Foo(i32);
+
+impl std::str::FromStr for Foo {
+    type Err = (); // Cop out on error reporting
+    fn from_str(s: &str) -> Result<Foo, ()> {
+        //parse string as Foo...
+    }
+}
+
+fn main() {
+    let foo: Foo = "100".parse().unwrap();
+    println!("Result: {:?}", foo);
+}
+```
+
+.center[
+[example](http://is.gd/XPgUiU)
+]
+
+The `parse` function is generic over `FromStr`. Rust looks
+up a `FromStr` implementation for type Foo.
 
 ---
 
