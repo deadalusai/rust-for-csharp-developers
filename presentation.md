@@ -994,3 +994,29 @@ and the Rust compiler has no way of verifying it.
 
 (Rust can bind to any language which supports C bindings)
 
+---
+
+# Unit Testing
+
+Rust comes with a built-in unit testing framework.
+
+Tests are written in-line in a module, next to the code they're testing.
+
+```rust
+fn add(a: i32, b: i32) -> i32 {
+    a + b
+}
+
+#[test]
+fn math_checks_out() {
+    let result = add(100, 200);
+
+    assert_eq!(300, result);
+}
+```
+
+Test code is only compiled in "test" builds.
+
+.center[
+[example](http://is.gd/ZCWswE)
+]

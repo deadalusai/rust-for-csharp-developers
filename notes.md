@@ -564,3 +564,14 @@ foreign code could potentially do anything, including scribble on your stack.
 
 For FFI, Rust basically speaks C - any language which supports binding to C
 can bind to Rust code.
+
+
+# Unit Testing
+
+The Rust compiler comes with a built-in unit testing framework.
+
+Any function marked with the `#[test]` attribute can be run as a test.
+
+Tests are written in-line in a module, next to the code they're testing.
+
+I'm waiting for this feature to come to C#.
