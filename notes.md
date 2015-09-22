@@ -107,16 +107,27 @@ to invoke the subroutine without giving up ownership of our data.
 
 # Borrowing two
 
+All borrowed values have a lifetime.
+
 Data once borrowed can only be accessed via that reference, until the
 borrow ends.
 
 This is to prevent us from "moving" (or otherwise changing) borrowed memory
-while the borrow is still in scope.
+while the borrow is still in scope. This prevents a common C and C++ bug:
+**use after free**.
 
 If you have a reference to some memory it is guaranteed to always be valid.
 
 
 # Borrowing three
+
+In addition to preventing us from freeing borrowed memory, Rust prevents
+us from moving "transferring ownership of" borrowed values.
+
+The is again in service of preventing borrowed memory from becoming invalid.
+
+
+# Borrowing four
 
 This common mistake in the C programming language is a compile error in Rust.
 
@@ -137,7 +148,7 @@ We can't provide a lifetime, because it's impossible to do so. Use after free
 prevented!
 
 
-# Borrowing four
+# Borrowing five
 
 We **can** return a reference into data which we've borrowed. Here the
 `get_inner` function returns a reference to the `inner` field of the `Foo`
@@ -148,12 +159,24 @@ borrow is allowed.
 
 The rule is that `foo` must live **at least** as long as `inner`.
 
+# Borrowing six (lifetimes)
 
-# Borrowing five
+I mentioned earlier that all borrows have a lifetime.
+
+The borrow checker can often determine the lifetime of a reference
+automatically. When it can't, we can use "lifetime parameters" to
+help it out.
+
+Like generic parameters, lifetime parameters must be declared as part
+of a type, trait or functionn.
+
+Lifetime parameters are prefixed with a single apostrophe: `'`
+
+# Borrowing seven (giving up)
 
 You will not always want to work with borrowed values - either you want to
-own the data you're working with, or you find yourself "fighting with the borrow
-checker".
+own the data you're working with, or you find yourself "fighting with the
+borrow checker".
 
 One way to take ownership of a borrowed value is to copy it - we can do so
 with the `clone` function.

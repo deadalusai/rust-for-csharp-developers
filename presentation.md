@@ -183,6 +183,10 @@ again use the `foo` variable.
 [example](http://is.gd/uNGBlG)
 ]
 
+The lifetime of the borrow helps the Rust prevent **use after free**, by
+forcing us to ensure that any referenced memory lives at least as long
+as the borrowed values.
+
 ---
 
 # Borrowing
@@ -272,17 +276,41 @@ at least as long as the borrow of `foo.inner`.
 
 ---
 
-# Borrowing
+# Borrowing (lifetimes)
 
-Fighting with the Borrow Checker?
+The borrow checker can't always determine the lifetime of a borrow.
+
+We can provide lifetime parameters to help describe the lifetime of
+a value.
+
+```rust
+// In a struct
+struct Bar<'a> {
+    foo: &'a Foo;
+}
+
+// In a function
+fn baz<'a>(foo: &'a Foo) {
+    //...
+}
+```
+
+The lifetime parameter helps the borrow checker verify that `Bar`
+does not outlive the `Foo` reference it contains.
+
+---
+
+# Borrowing (giving up)
+
+Fighting with the borrow checker?
 
 ```rust
 let borrowed_foo: &Foo = ...;
 let owned_foo: Foo = borrowed_foo.clone(); // An owned copy of borrowed_foo
 ```
 
-Borrowing can become complicated. A common solution is to take
-a copy of a borrowed value.
+Borrowing can become complicated (or impossible). A common solution is to
+take a copy of a borrowed value.
 
 Because you own the result, you can do what you like with it.
 
