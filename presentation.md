@@ -554,6 +554,27 @@ enum State {
     Go = 2
 }
 ```
+
+---
+
+# Strings
+
+Rust strings are UTF8 encoded byte arrays. Rust has two string
+types (sort of):
+
++   `String` - A (potentially) mutable, growable UTF8 string.
+
++   `&str` - Called a "string slice" - an immutable pointer to a portion of
+    a string.
+
+A bare string literal has the type `&'static str` - that is, a static,
+immutable string reference. You will often see code like the following
+to convert a string literal into an owned, mutable string:
+
+```rust
+let my_string: String = "The String".to_owned();
+```
+
 ---
 
 # Option<T>
@@ -820,3 +841,4 @@ This is because the foreign code could potentially do anything
 and the Rust compiler has no way of verifying it.
 
 (Rust can bind to any language which supports C bindings)
+

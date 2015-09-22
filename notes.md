@@ -313,6 +313,22 @@ for an enum variant (or a catch-all branch) the compiler emits an error.
 Enums can also behave more "traditionally".
 
 
+# Strings
+
+Rust strings are UTF8 encoded byte arrays. Rust provides us with functions
+for enumerating bytes, characters or graphemes.
+
+Rust has two types to represent strings: `String` - a mutable, growable
+string type; and `&str` - called a string slice, a "fat pointer" into
+a string.
+
+A bare string literal has the type `&'static str` - a string slice with
+a static lifetime. You will often see code calling `.to_owned()` to
+copy the slice into an owned, mutable string.
+
+Many, many functions in rust accept and return string slices, helping
+to avoid expensive string copy operations.
+
 # Option<T>
 
 Rust doesn't allow "null" references, but it can be useful to represent
