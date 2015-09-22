@@ -352,6 +352,23 @@ copy the slice into an owned, mutable string.
 Many, many functions in rust accept and return string slices, helping
 to avoid expensive string copy operations.
 
+
+# Expressions
+
+In Rust almost all language constructs are Expressions (as opposed to
+Statements).
+
+In any block, the last expression without a terminating semicolon
+is the "result" of that expression.
+
+A block without a "value" expression has the `Unit` type,
+represented as `()`.
+
+For branching statements like `match` or `if`, the return type of each
+branch must be the same.
+
+Loops always resolve to the `Unit` type.
+
 # Option<T>
 
 Rust doesn't allow "null" references, but it can be useful to represent

@@ -591,7 +591,6 @@ Rust strings are UTF8 encoded byte arrays. Rust has two string
 types (sort of):
 
 +   `String` - A (potentially) mutable, growable UTF8 string.
-
 +   `&str` - Called a "string slice" - an immutable pointer to a portion of
     a string.
 
@@ -602,6 +601,28 @@ to convert a string literal into an owned, mutable string:
 ```rust
 let my_string: String = "The String".to_owned();
 ```
+
+---
+
+# Expressions
+
+In Rust almost all language constructs are Expressions (as opposed to
+Statements).
+
+```rust
+let a: i32 = if true { 1 } else { 2 };
+
+let b = {
+    let c = "Hello, world";
+    c.to_owned()
+};
+```
+
+In any block, the last expression without a terminating semicolon
+is the "result" of that expression.
+
+A block without a "value" expression has the `Unit` type,
+represented as `()`.
 
 ---
 
@@ -844,7 +865,6 @@ let data: Vec<i32> = {
     temp_vec
 };
 ```
-
 
 ---
 
