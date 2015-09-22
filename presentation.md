@@ -951,15 +951,14 @@ Rust provides "hygenic macros" - these macros operate directly on the
 AST at compile time, unlike C/C++ macros which are just string token
 replacement before compilation.
 
-Rust code commonly makes extensive use of macros to reduce boilerplate
-and automate common actions:
+Macros are often used to reduce repetitious syntax, e.g.
 
 ```rust
 //make and initialize a vector of ints
 let data: Vec<i32> = vec![1, 2, 3];
 ```
 
-This expands to something like the following:
+Which might expand to something like:
 
 ```rust
 let data: Vec<i32> = {
