@@ -1049,3 +1049,22 @@ Test code is only compiled in "test" builds.
 .center[
 [example](http://is.gd/ZCWswE)
 ]
+
+---
+
+class: center, middle
+
+# Demo
+
+
+---
+
+# References
+
+I lifted content from these much better presentations:
+
+1.  [Intro to the Rust Programming Language](https://www.youtube.com/watch?v=agzf6ftEsLU) - Alex Crichton
+2.  [The Rust Programming Language](https://www.youtube.com/watch?v=d1uraoHM8Gg&feature=youtu.be) - Alex Crichton
+
+Also be sure to check out the [Rust Book](https://doc.rust-lang.org/stable/book/) and the
+[Rust Standard Library Documentation](http://doc.rust-lang.org/stable/std/).
