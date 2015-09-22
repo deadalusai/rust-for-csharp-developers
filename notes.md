@@ -356,7 +356,7 @@ Enums are structs on steroids. F# users might be more comfortable with the name
 Each enum variant can optionally contain data. A value of a given enum type will
 be the size of the largest variant.
 
-We use the `match` statement to "unwrap" an enum. Like F#, the Rust compiler
+We use the pattern matching statement to "unwrap" an enum. Like F#, Rust
 ensures that this statement is exhaustive - if you fail to specify a branch
 for an enum variant (or a catch-all branch) the compiler emits an error.
 
@@ -408,6 +408,19 @@ The Vec struct is a growable, heap-allocated collection.
 
 It is extremely common to see Rust code creating and passing around
 vectors.
+
+
+# Slices
+
+We can borrow any contiguous chunk of memory as a "slice".
+
+Like `&str`, a slice is an immutable pointer to a portion of memory
+plus a length.
+
+Using slice syntax, I can take a slice of a vector.
+
+The Rust compiler can not know the size of the slice at compile time,
+so we have to make sure to put the slice behind a reference.
 
 
 # Option<T>

@@ -605,15 +605,17 @@ struct Vector3(f32, f32, f32);
 Enums are structs on steroids. F# users might be more comfortable with the name
 "Discriminated Unions".
 
-Each "variant" can optionally hold data using tuple or struct syntax:
-
 ```rust
 enum MyEnum {
     A,
     B(i32),
     C { i: i32 }
 }
+```
 
+I can use a `match` statement to get to the contents of an Enum:
+
+```rust
 fn main() {
     let maybe = MyEnum::B(100);
     match maybe {
@@ -632,8 +634,6 @@ fn main() {
 
 # Enums
 
-A value of a given enum type is the size of the largest variant.
-
 Enums can also behave "traditionally":
 
 ```rust
@@ -644,6 +644,9 @@ enum State {
 }
 ```
 
+**Note:** A value of a given enum type is the size of the largest
+variant.
+
 ---
 
 # Strings
@@ -653,7 +656,7 @@ types (sort of):
 
 +   `String` - A (potentially) mutable, growable UTF8 string.
 +   `&str` - Called a "string slice" - an immutable pointer to a portion of
-    a string.
+    a string plus a length.
 
 A bare string literal has the type `&'static str` - that is, a static,
 immutable string reference. You will often see code like the following
@@ -698,6 +701,33 @@ a.push("Hello, world".to_owned());
 ```
 
 The Vec struct is a growable, heap-allocated collection.
+
+---
+
+# Slices
+
+We can borrow any contiguous chunk of memory as a slice.
+
+Like `&str`, a slice is an immutable pointer to a portion of memory
+plus a length.
+
+For example I can take a slice of a Vec:
+
+```rust
+let data: Vec<_> = make_big_vector();
+
+// Slice syntax allows us to get an immutable slice
+// of the contents of the vector
+
+let subslice_1 = &data[10..];
+let subslice_2 = &data[..200];
+```
+
+`subslice_1` has the type `&[Foo]`, read as "Foo slice".
+
+.center[
+[example](http://is.gd/rcQEnp)
+]
 
 ---
 
