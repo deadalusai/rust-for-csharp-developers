@@ -819,9 +819,38 @@ In this case the Trait behaves much more like a C# interface.
 
 ---
 
+# Macros!
+
+Rust provides "hygenic macros" - these macros operate directly on the
+AST at compile time, unlike C/C++ macros which are just string token
+replacement before compilation.
+
+Rust code commonly makes extensive use of macros to reduce boilerplate
+and automate common actions:
+
+```rust
+//make and initialize a vector of ints
+let data: Vec<i32> = vec![1, 2, 3];
+```
+
+This expands to something like the following:
+
+```rust
+let data: Vec<i32> = {
+    let mut temp_vec = Vec::new();
+    temp_vec.push(1);
+    temp_vec.push(2);
+    temp_vec.push(3);
+    temp_vec
+};
+```
+
+
+---
+
 # Unsafe
 
-Rust is a memory safe language which executes in an unsafe world.
+Rust is a memory safe language which executes in an unsafe environment.
 
 Many abstractions in Rust are implemented using **unsafe** code.
 
@@ -848,9 +877,9 @@ Unsafe code is not discouraged, but it's usually unnecessary!
 
 ---
 
-# Unsafe (FFI)
+# Unsafe (foreign function interface)
 
-All FFI (foreign function interface) code is unsafe.
+All FFI code is unsafe.
 
 ```rust
 #[link(name = "externallib")]

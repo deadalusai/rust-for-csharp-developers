@@ -462,6 +462,22 @@ optimized for the vtable.
 In this case the Trait behaves much more like a C# interface.
 
 
+# Macros!
+
+Rust provides "hygenic macros" - these macros operate directly on the
+AST at compile time, unlike C/C++ macros which are just string token
+replacement before compilation.
+
+Rust code commonly makes extensive use of macros to reduce boilerplate
+and automate common actions.
+
+Macros are identified in code by the bangs (!) at the end of their name.
+They allow for quite flexible syntax and include a small "type system",
+which allows you to limit the types of tokes you accept as arguments.
+
+You can write your own macros using the `macro_rules!` built-in macro.
+
+
 # Unsafe
 
 Rust is a memory safe language which executes in an unsafe world.
