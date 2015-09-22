@@ -868,6 +868,35 @@ let data: Vec<i32> = {
 
 ---
 
+# Iteration
+
+In Rust iteration is handled exclusively by iteration, using the
+`Iterator<T>` trait:
+
+```rust
+let a = vec![1, 2, 3];
+for i in a.iter() {
+    println!("The value is: {}", i);
+}
+```
+
+Rust also provides a "range" syntax:
+
+```rust
+for i in 0..10 {
+    //Iterate 0 through 9
+}
+```
+
+The `Iterator` trait provides a "LINQ-like" library for filtering and
+manipulating streams of data.
+
+.center[
+[the iterator trait](http://doc.rust-lang.org/stable/std/iter/trait.Iterator.html)
+]
+
+---
+
 # Unsafe
 
 Rust is a memory safe language which executes in an unsafe environment.

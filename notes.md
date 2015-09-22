@@ -495,6 +495,19 @@ which allows you to limit the types of tokes you accept as arguments.
 You can write your own macros using the `macro_rules!` built-in macro.
 
 
+# Iteration
+
+In Rust iteration is handled exclusively by iteration, using the
+`Iterator<T>` trait.
+
+The variable `i` here has type `&i32`, but could also be an owned value.
+
+The `Iterator` trait provides a "LINQ-like" library for filtering and
+manipulating streams of data.
+
+Despite this, implementing `Iterator` yourself requires just a single
+function!
+
 # Unsafe
 
 Rust is a memory safe language which executes in an unsafe world.
