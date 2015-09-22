@@ -499,6 +499,67 @@ fn main() {
 [example](http://is.gd/xBGGCg)
 ]
 
+---
+
+class: center, middle
+
+# A selection of language features
+
+A brief look at some of the day-to-day syntax
+and features you'll use when writing Rust code
+
+---
+
+# Iteration
+
+In Rust iteration is handled exclusively by iteration, using the
+`Iterator<T>` trait:
+
+```rust
+let a = vec![1, 2, 3];
+for i in a.iter() {
+    println!("The value is: {}", i);
+}
+```
+
+Rust also provides a "range" syntax:
+
+```rust
+for i in 0..10 {
+    //Iterate 0 through 9
+}
+```
+
+The `Iterator` trait provides a "LINQ-like" library for filtering and
+manipulating streams of data.
+
+.center[
+[the iterator trait](http://doc.rust-lang.org/stable/std/iter/trait.Iterator.html)
+]
+
+---
+
+# Type Inference
+
+Rust has very strong type inference (within a function).
+
+```rust
+// The vector is Rust's generic collection
+let my_strings = Vec::new();
+
+my_strings.push("Hello, world");
+my_strings.push("Goodbye, sun");
+```
+
+Rust determines the generic parameter of `Vec<T>` based on the types
+used with it later in the function.
+
+I can provide a hint (or just part of a hint):
+
+```rust
+let my_things = (0..100).collect::<Vec<_>>();
+```
+
 
 ---
 
@@ -626,7 +687,21 @@ represented as `()`.
 
 ---
 
-# Option<T>
+# Vec&lt;T&gt;
+
+The basic generic collection in Rust is the Vec:
+
+```rust
+let mut a = Vec::new();
+
+a.push("Hello, world".to_owned());
+```
+
+The Vec struct is a growable, heap-allocated collection.
+
+---
+
+# Option&lt;T&gt;
 
 Rust doesn't allow "null" references, but it can be useful to represent
 the concept of "no data".
@@ -655,7 +730,7 @@ let s = maybe.unwrap(); // panic! Attempted to unwrap None
 
 ---
 
-# Result<T, Err>
+# Result&lt;T, Err&gt;
 
 Rust doesn't have any concept of "Exceptions". (Panics don't count*)
 
@@ -865,35 +940,6 @@ let data: Vec<i32> = {
     temp_vec
 };
 ```
-
----
-
-# Iteration
-
-In Rust iteration is handled exclusively by iteration, using the
-`Iterator<T>` trait:
-
-```rust
-let a = vec![1, 2, 3];
-for i in a.iter() {
-    println!("The value is: {}", i);
-}
-```
-
-Rust also provides a "range" syntax:
-
-```rust
-for i in 0..10 {
-    //Iterate 0 through 9
-}
-```
-
-The `Iterator` trait provides a "LINQ-like" library for filtering and
-manipulating streams of data.
-
-.center[
-[the iterator trait](http://doc.rust-lang.org/stable/std/iter/trait.Iterator.html)
-]
 
 ---
 

@@ -286,13 +286,43 @@ The two Arcs are "dropped" when their threads exit.
 ensures that the threads have only read-only access to `peeps`.
 
 
-# More straightforward language featues
+# A selection of language featues
 
 So far we've had an in-depth review of the features which make Rust new and
 interesting.
 
 Lets take a look at some of the more vanilla language features you'll use in
 day-to-day rust.
+
+
+# Iteration
+
+In Rust iteration is handled exclusively by iteration, using the
+`Iterator<T>` trait.
+
+The variable `i` here has type `&i32`, but could also be an owned value.
+
+The `Iterator` trait provides a "LINQ-like" library for filtering and
+manipulating streams of data.
+
+Despite this, implementing `Iterator` yourself requires just a single
+function!
+
+
+# Type Inference
+
+Rust has very strong type inference. It can infer the generic parameters
+of a type based on how the value is used later in the funtion.
+
+I can provide a hint, or just part of a hint using the `::<type>` syntax.
+
+The `_` placeholder here is a "hole". The type inference engine will figure
+out how to fill it.
+
+In this case I'm instructing the `collect` function to collect the integer
+range into a Vector of ints.
+
+We'll cover how this works in a few slides when we talk about Traits.
 
 
 # Structs
@@ -368,6 +398,17 @@ For branching statements like `match` or `if`, the return type of each
 branch must be the same.
 
 Loops always resolve to the `Unit` type.
+
+
+# Vec<T>
+
+The basic generic collection in Rust is the vector.
+
+The Vec struct is a growable, heap-allocated collection.
+
+It is extremely common to see Rust code creating and passing around
+vectors.
+
 
 # Option<T>
 
@@ -494,19 +535,6 @@ which allows you to limit the types of tokes you accept as arguments.
 
 You can write your own macros using the `macro_rules!` built-in macro.
 
-
-# Iteration
-
-In Rust iteration is handled exclusively by iteration, using the
-`Iterator<T>` trait.
-
-The variable `i` here has type `&i32`, but could also be an owned value.
-
-The `Iterator` trait provides a "LINQ-like" library for filtering and
-manipulating streams of data.
-
-Despite this, implementing `Iterator` yourself requires just a single
-function!
 
 # Unsafe
 
