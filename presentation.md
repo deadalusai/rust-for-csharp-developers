@@ -20,6 +20,12 @@ allocation/deallocation.
 
 ---
 
+class: center, middle
+
+# Why should I be interested?
+
+---
+
 # Features
 
 01. Rich type-system
@@ -35,15 +41,9 @@ allocation/deallocation.
 
 ---
 
-## Prevents almost all crashes
+class: center, middle
 
-...by preventing segfaults/invalid memory access
-
-
-## Eliminates data races
-
-...by preventing two threads of execution from accessing the
-same memory simultaneously
+# How does it do it?
 
 ---
 
@@ -74,7 +74,7 @@ var bar1 = new Bar { Foo = foo };
 var bar2 = new Bar { Foo = foo };
 ```
 
-The equivalent Rust code *does not compile:*
+The equivalent Rust code does not compile:
 
 ```rust
 struct Foo { data: i32 } //i32 is a 32-bit signed integer

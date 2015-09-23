@@ -7,6 +7,25 @@ It aims to provide zero-cost abstractions and memory safety - using static
 (compile time) checking and deterministic memory allocation/deallocation.
 
 
+# Why should I be Interested?
+
+Programming languages like C and C++ provide "close to the metal" performance,
+at the cost of run-time safety.
+
+These languages make it very easy to construct programs which appear valid
+but fail catastrophically at runtime. Often these bugs are memory related:
+data races, dangling pointers, etc.
+
+On the other hand, C and C++ provide very fine-grained control over performance.
+Many abstractions vanish at compile time. They have no dependance on a GC,
+which makes them ideal for use in real-time applications and games.
+
+Rust aims to solve all of these problems:
+
+1.  Fast - Rust is backed by LLVM and compiles directly to machine code
+2.  High-level - Rust allows for useful abstractions and generic programming
+3.  Memory safe - Rust guarantees that all memory access is safe - no segfaults
+4.  Minimal runtime - Rust does not require a GC
 
 
 # Features
@@ -38,12 +57,10 @@ machine code by the excellent LLVM compiler backend.
 Finally - Rust aims to be completely cross-platform. The recent 1.3 release
 has added support for the MSVC compiler toolchain.
 
-# Features continued
 
-The ultimate goal is to produce a compiler which can statically prevent data
-races and dangling pointers from ever occuring.
+# How does it do it?
 
-So we can say that Rust...
+Let's take a look at how the Rust language makes these guarantees.
 
 
 # Ownership and Borrowing
