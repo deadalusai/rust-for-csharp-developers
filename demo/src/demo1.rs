@@ -1,7 +1,7 @@
 use std::env;
 use std::process::exit;
 
-fn main() {
+pub fn main() {
     let mut argv = env::args();
     let arg: String = match argv.nth(1) {
         Some(s) => s, // Success - resolve to the string value
