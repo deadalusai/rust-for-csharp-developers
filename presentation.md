@@ -731,59 +731,10 @@ let subslice_2 = &data[..200];
 
 ---
 
-# Option&lt;T&gt;
-
-Rust doesn't allow "null" references, but it can be useful to represent
-the concept of "no data".
-
-The rust standard library gives us the `Option<T>` enum:
-
-```rust
-enum Option<T> { Some(T), None }
-```
-
-Thanks to `Option`, "null reference errors" are hard to cause unintentionally:
-
-```rust
-let maybe: Option<String> = None;
-
-// To get at the possibly-none value, I must either match:
-let s = match maybe { Some(s) => s, None => "Missing".to_string() }; // "Missing"
-
-// Or unwrap:
-let s = maybe.unwrap(); // panic! Attempted to unwrap None
-```
-
-.center[
-[example](http://is.gd/UGGxux)
-]
-
----
-
-# Result&lt;T, Err&gt;
-
-Rust doesn't have any concept of "Exceptions". (Panics don't count*)
-
-Instead, we can use the `Result<T, Err>` enum.
-
-```rust
-enum Result<T, E> { Ok(T), Err(E) }
-```
-
-The `E` generic type can be anything useful to represent what
-went wrong: an enum, complex struct or even just a string.
-
-Like Option, we can use pattern matching or `unwrap` to get at the
-`Ok` result.
-
-__*__ Panics can only be "caught" at a thread boundary
-
----
-
 # Traits
 
-Superfically similar to C# interfaces. Tou can implement whenever
-you control either the trait or the type.
+Superfically similar to C# interfaces. You can implement a trait for a type
+as long as you control at least one of them.
 
 ```rust
 // From the standard library
@@ -839,12 +790,10 @@ fn main() {
 
 # Traits and Generics
 
-Traits become useful when used as bounds in generics:
+Traits become more useful when used as bounds in generic types or functions:
 
 ```rust
-fn clone_vec<T>(source: &Vec<T>) -> Vec<T>
-    where T: Clone
-{
+fn clone_vec<T>(source: &Vec<T>) -> Vec<T> where T: Clone {
     let mut dest = Vec::new();
     for item in source.iter() {
         dest.push(item.clone());
@@ -853,17 +802,19 @@ fn clone_vec<T>(source: &Vec<T>) -> Vec<T>
 }
 
 fn main() {
-    let clonable = Vec::new();
+    let mut clonable = Vec::new();
     clonable.push(100_i32);
-
     let copy = clone_vec(&clonable); //Ok!
 
-    let unclonable = Vec::new();
+    let mut unclonable = Vec::new();
     unclonable.push(Unclonable);
-
-    let copy = clone_vec(&clonable); //Not allowed!
+    let copy = clone_vec(&unclonable); //Not allowed!
 }
 ```
+
+.center[
+[example](http://is.gd/FCnCeR)
+]
 
 ---
 
