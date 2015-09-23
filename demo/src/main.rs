@@ -14,8 +14,11 @@
 //mod demo4;
 //use demo4::main as demo_main;
 
-mod demo5;
-use demo5::main as demo_main;
+//mod demo5;
+//use demo5::main as demo_main;
+
+mod demo6;
+use demo6::main as demo_main;
 
 fn main() {
     demo_main();

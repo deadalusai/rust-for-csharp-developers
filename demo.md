@@ -109,3 +109,38 @@ The try! macro is defined something like this - the Ok branch resolves to the va
 resolves to an Early Return.
 
 So when we try! to unwrap an Err, instead of panicking we simply pass that error back up to the calling code.
+
+
+## Demo 6 - Introducing moar complexity
+
+Ok - our file `numbers.txt` actually contains numbers, seperated by lines. Instead of returning strings,
+wouldn't it be great if read_file could return a vector of ints?
+
+With try!, and a little Trait magic, we can do just that.
+
+First, let's introduce a custom error type: `ReadError`
+
+The ReadError enum represents one of two distinct values: `io::Error` or `num::ParseIntError`. I could also
+choose to normalize these errors into my own custom struct, but for now we'll just wrap them.
+
+Next we introduce a couple more lines to the read_file function: we use `line.trim().parse()` to parse each
+line as an unsigned 64-bit integer.
+
+Like the `collect` function from earlier, Rust determines which `parse` implementation to use based
+on the return type of this function: Result of u64.
+
+Finally, the magic part: We implement the trait std::convert::From for each case of our ReadError type:
+Once for std::io::Error and once for std::num::ParseIntError.
+
+This is possible because I lied to you earlier about how the `try!` macro was implemented. Let's take a look
+at the real definition:
+
+http://doc.rust-lang.org/stable/std/macro.try!.html
+
+The try! macro uses std::convert::From to convert the incoming error type into the outgoing error type.
+We just implemented std::convert::From for each case of our enum, so Rust looks up those conversion functions!
+
+As an upshot, we are getting much more granular information about the errors encountered by the read_file function
+in our calling code. We can clearly differentiate between a "read error" and a "parse error".
+ 
+
