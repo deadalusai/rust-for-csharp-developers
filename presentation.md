@@ -569,11 +569,30 @@ We've seen this a few times:
 
 ```rust
 struct Vector3 { x: f64, y: f64, z: f64 }
+```
+
+You can define functions with an `impl` block:
+
+```rust
+impl Vector3 {
+    fn new(x: f64, y: f64, z: f64) -> Vector3 {
+        Vector3 { x: x, y: y, z: z }
+    }
+    
+    fn add(&self, other: &Vector3) -> Vector3 {
+        Vector3 { x: self.x + other.x, y: self.y + other.y, z: self.z + other.z }
+    }
+}
 
 fn main() {
-    let v1 = Vector3 { x: 100, y: 200, z: 300 };
+    let v1 = Vector3::new(100.0, 200.0, 300.0);
+    let v2 = v1.add(&v1);
 }
 ```
+
+.center[
+[example](http://is.gd/bnHDGi)
+]
 
 ---
 

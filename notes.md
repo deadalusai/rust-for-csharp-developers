@@ -350,6 +350,9 @@ We've seen this syntax used throughout my samples so far.
 
 Like C#, structs are a collection of values accessible by name.
 
+An `impl` block allows us to implement methods on the struct. You can use this same
+pattern for all other struct types in Rust (which we'll see in the next slides).
+
 Unlike C# a struct must be "constructed" in a single expression - no partially
 initialized values allowed.
 
