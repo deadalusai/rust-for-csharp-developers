@@ -87,3 +87,25 @@ an option, and filter_map filters out any None values.
 
 Finally, `collect` packages the results of the iteration into a collection. In this case Rust infers
 that the collection should be a `Vec<String>`, based on the return type of the function.
+
+
+## Demo 5 - Getting closer
+
+`read_file` is now pretty tight, but it's doing something naughty - ignoring errors which occure during
+the read process.
+
+If the file is lost somehow before we collect the results, then read_file happily returns an empty vector.
+
+Let's introduce something new: the `try!` macro.
+
+This new version is very similar to our original "unwrap" code, but instead of unwrap, we're using 
+the `try!` macro.
+
+Whenever we need to unwrap a Result, we use the try! macro to do so.
+
+See: `demo5_try.rs`.
+
+The try! macro is defined something like this - the Ok branch resolves to the value, while the Err branch
+resolves to an Early Return.
+
+So when we try! to unwrap an Err, instead of panicking we simply pass that error back up to the calling code.
